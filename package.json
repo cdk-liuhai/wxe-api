@@ -1,0 +1,21 @@
+{
+  "name": "wxe-api",
+  "version": "0.0.1",
+  "description": "wechat enterprise api",
+  "main": "dest/index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nagucc/wxe-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nagucc/wxe-api/issues"
+  },
+  "homepage": "https://github.com/nagucc/wxe-api#readme"
+}
