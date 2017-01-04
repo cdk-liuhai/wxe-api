@@ -3,6 +3,7 @@ import crypto from 'crypto';
 
 const qyapiPrefix = 'https://qyapi.weixin.qq.com/cgi-bin';
 const userPrefix = `${qyapiPrefix}/user`;
+const tagPrefix = `${qyapiPrefix}/tag`;
 
 /*!
  * 生成随机字符串
@@ -264,6 +265,23 @@ class WxeApi {
       msgtype: 'textcard',
       textcard,
     });
+  }
+
+  /*
+  获取标签列表
+  http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E6%A0%87%E7%AD%BE#.E8.8E.B7.E5.8F.96.E6.A0.87.E7.AD.BE.E5.88.97.E8.A1.A8
+   */
+  async getTagList() {
+    let result;
+    try {
+      const token = await this.getToken();
+      const res = await fetch(`${tagPrefix}/list?access_token=${token}`);
+      result = await res.json();
+    } catch (e) {
+      throw e;
+    }
+    if (result.errcode) throw result;
+    return result;
   }
 }
 
