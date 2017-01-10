@@ -225,10 +225,8 @@ class WxeApi {
       };
     }
     let result;
-    console.log(JSON.stringify(body));
     try {
       const token = await this.getToken();
-      console.log(token);
       const res = await fetch(`${qyapiPrefix}/message/send?access_token=${token}`, {
         method: 'POST',
         body: JSON.stringify(body),
@@ -241,6 +239,10 @@ class WxeApi {
     return result;
   }
 
+  /*
+  发送文本消息
+  http://qydev.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F#text.E6.B6.88.E6.81.AF
+   */
   sendText(to, agentid, content) {
     return this.sendMessage(to, {
       agentid,
@@ -251,6 +253,10 @@ class WxeApi {
     });
   }
 
+  /*
+    发送news消息
+    http://qydev.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B%E5%8F%8A%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F#news.E6.B6.88.E6.81.AF
+   */
   sendNews(to, agentid, articles) {
     return this.sendMessage(to, {
       agentid,
@@ -276,6 +282,23 @@ class WxeApi {
     try {
       const token = await this.getToken();
       const res = await fetch(`${tagPrefix}/list?access_token=${token}`);
+      result = await res.json();
+    } catch (e) {
+      throw e;
+    }
+    if (result.errcode) throw result;
+    return result;
+  }
+
+  /*
+    获取标签内容
+    http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E6%A0%87%E7%AD%BE#.E8.8E.B7.E5.8F.96.E6.A0.87.E7.AD.BE.E6.88.90.E5.91.98
+   */
+  async getTag(tagid) {
+    let result;
+    try {
+      const token = await this.getToken();
+      const res = await fetch(`${tagPrefix}/get?access_token=${token}&tagid=${tagid}`);
       result = await res.json();
     } catch (e) {
       throw e;

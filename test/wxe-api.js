@@ -2,7 +2,7 @@
 /* eslint-disable padded-blocks, no-unused-expressions */
 
 import { expect } from 'chai';
-import WxeApi from '../src/wxe-api';
+import WxeApi from '../src/index';
 
 const wxapi = new WxeApi({
   corpId: process.env.WXE_CORPID,
@@ -10,23 +10,24 @@ const wxapi = new WxeApi({
   agentId: process.env.WXE_AGENTID || 28,
 });
 describe('wxent-api', () => {
-  it('sendMessage', async () => {
-    const result = await wxapi.sendMessage({
-      touser: 'na57',
-    }, {
-      msgtype: 'text',
-      agentid: 28,
-      text: {
-        content: 'test',
-      },
-    });
-    console.log(result);
-  });
-  // it('sendText', async () => {
-  //   const result = await wxapi.sendText({
+  // it('sendMessage', async () => {
+  //   const result = await wxapi.sendMessage({
   //     touser: 'na57',
-  //   }, 28, 'test sendText');
+  //   }, {
+  //     msgtype: 'text',
+  //     agentid: 28,
+  //     text: {
+  //       content: 'test',
+  //     },
+  //   });
+  //   console.log('result:::', result);
   // });
+  it('sendText', async () => {
+    const result = await wxapi.sendText({
+      touser: 'na57',
+    }, 28, 'test sendText');
+    console.log('result::', result);
+  });
   // it('send textcard', async () => {
   //   const result = await wxapi.sendTextCard({
   //     touser: 'na57',

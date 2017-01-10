@@ -1,1 +1,3 @@
-export defaut from './wxe-api.js';
+import WxeApi from './wxe-api';
+
+export default WxeApi;

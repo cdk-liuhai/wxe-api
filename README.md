@@ -42,3 +42,7 @@ const na57 = await wxeapi.getUser('na57');
 ### sendNews(to, agentid, articles)
 
 ### sendTextCard(to, agentid, textcard)
+
+### getTagList()
+
+### getTag(tagid)
