@@ -1,5 +1,9 @@
 import fetch from 'node-fetch';
 import crypto from 'crypto';
+import debug from 'debug';
+
+const error = debug('wxe-api:error');
+const info = debug('wxe-api:info');
 
 const qyapiPrefix = 'https://qyapi.weixin.qq.com/cgi-bin';
 const userPrefix = `${qyapiPrefix}/user`;
@@ -100,13 +104,19 @@ class WxeApi {
   async getToken() {
     try {
       const localToken = await this.getLocalToken();
-      if (localToken) return localToken;
+      if (localToken) {
+        info('get token from local:', localToken);
+        return localToken;
+      }
 
       const res = await fetch(`https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=${this.corpId}&corpsecret=${this.secret}`);
       const result = await res.json();
+      info('get token from remote: ', result.access_token);
       await this.setToken(result.access_token);
       return result.access_token;
     } catch (e) {
+      error('getToken(): ', e.message);
+      error('getToken():', e.stack);
       throw e;
     }
   }
@@ -284,10 +294,14 @@ class WxeApi {
       const res = await fetch(`${tagPrefix}/list?access_token=${token}`);
       result = await res.json();
     } catch (e) {
+      error('getTagList():', e.message);
       throw e;
     }
-    if (result.errcode) throw result;
-    return result;
+    if (result.errcode) {
+      error('getTagList():', result.errcode, result.errmsg);
+      throw result;
+    }
+    return result.taglist;
   }
 
   /*

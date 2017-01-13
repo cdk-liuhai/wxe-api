@@ -43,6 +43,22 @@ const na57 = await wxeapi.getUser('na57');
 
 ### sendTextCard(to, agentid, textcard)
 
-### getTagList()
+### async getTagList()
+获取标签列表
+
+- 返回值
+  ```js
+  [
+    {"tagid":1,"tagname":"a"},
+    {"tagid":2,"tagname":"b"}
+   ]
+  ```
 
 ### getTag(tagid)
+
+
+## CHANGELOG
+
+### 1.0.0
+- 加入debug组件，名称：`wxe-api:error`，`wxe-api:info`;
+- getTagList 直接返回taglist。(BREAKING CHANGE);
